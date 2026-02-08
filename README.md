@@ -320,9 +320,9 @@ were verified directly via `kubectl logs` and are documented below.
   "k8s.ns.name": "vulnerable-apps",
   "source": "syscall"
 }
-
-
-## Conclusion
+---
+ ```bash
+**Conclusion**
 
 This project demonstrates a practical, end-to-end approach to cloud-native security by combining:
 
