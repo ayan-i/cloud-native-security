@@ -262,17 +262,13 @@ Initial policy application failed due to incorrect application order.
 
 * Applied ConstraintTemplates first
 * Applied Constraints after CRDs were registered
-
 ---
-
 ## Limitations
 
 * The GKE cluster was constrained by regional quota limits
 * Gatekeeper audit functionality was limited by cluster size
 * This project focuses on security controls and does not represent a production-hardened environment
-
 ---
-
 ## Evidence & Cleanup Note
 
 All security controls were successfully implemented and validated. The GKE cluster was intentionally deleted after testing to avoid unnecessary cloud charges.
@@ -285,11 +281,24 @@ Evidence for this project includes:
 * RBAC audit exports
 * GKE Cluster
 * Falco alert logs
-![Trivy Scan](screenshots/trivy-scan-report.png)
-![Gatekeep-Blocking](screenshots/Gatekeep-Blocking.png) 
-![Network-Policy](screenshots/Network-Policy.png)
-![RBAC-Least-Privilege](screenshots/RBAC-Least-Privilege.png)
-![GKE-Cluster](screenshots/GKE-Cluster.png)
+
+### 📸 Evidence Screenshots
+
+#### Trivy Vulnerability Scan
+![Trivy Scan](Screenshots/Trivy-Scan.png)
+
+#### OPA Gatekeeper Blocking Privileged Pod
+![Gatekeeper Blocking](Screenshots/Gatekeeper-Blocking.png)
+
+#### Kubernetes Network Policies
+![Network Policy](Screenshots/Network-Policy.png)
+
+#### RBAC Least Privilege
+![RBAC Least Privilege](Screenshots/RBAC-Least-Privilege.png)
+
+#### GKE Cluster (Running)
+![GKE Cluster](Screenshots/GKE-Cluster.png)
+
 
 ### Falco Runtime Alert Evidence
 
@@ -311,9 +320,7 @@ were verified directly via `kubectl logs` and are documented below.
   "k8s.ns.name": "vulnerable-apps",
   "source": "syscall"
 }
-
 ---
-
 ## Conclusion
 
 This project demonstrates a practical, end-to-end approach to cloud-native security by combining:
