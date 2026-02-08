@@ -1,0 +1,12 @@
+falcosidekick:
+  enabled: true
+
+customRules:
+  custom-rules.yaml: |
+    - rule: Read sensitive file
+      desc: Detect reads of sensitive files
+      condition: evt.type=open and fd.name=/etc/shadow
+      output: Sensitive file accessed (file=%fd.name)
+      priority: WARNING
+      tags: [filesystem, security]
+

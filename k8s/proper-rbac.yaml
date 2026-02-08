@@ -1,0 +1,36 @@
+# proper-rbac.yaml
+# Least-privilege role for the trading app
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: trading-app-sa
+  namespace: trading-app
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: trading-app-role
+  namespace: trading-app
+rules:
+# Only allow reading configmaps and secrets in own namespace
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  resourceNames: ["trading-app-secret"]  # Only specific secret
+  verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: trading-app-binding
+  namespace: trading-app
+subjects:
+- kind: ServiceAccount
+  name: trading-app-sa
+  namespace: trading-app
+roleRef:
+  kind: Role
+  name: trading-app-role
+  apiGroup: rbac.authorization.k8s.io

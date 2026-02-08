@@ -1,0 +1,144 @@
+apiVersion: v1
+items:
+- apiVersion: constraints.gatekeeper.sh/v1beta1
+  kind: K8sDenyPrivileged
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"constraints.gatekeeper.sh/v1beta1","kind":"K8sDenyPrivileged","metadata":{"annotations":{},"name":"deny-privileged-containers"},"spec":{"match":{"excludedNamespaces":["kube-system","gatekeeper-system","security-tools"],"kinds":[{"apiGroups":[""],"kinds":["Pod"]}]}}}
+    creationTimestamp: "2026-02-05T14:07:42Z"
+    generation: 1
+    name: deny-privileged-containers
+    resourceVersion: "1770558024710511020"
+    uid: 13a15c53-075b-4161-9d54-ef27fa45b27a
+  spec:
+    match:
+      excludedNamespaces:
+      - kube-system
+      - gatekeeper-system
+      - security-tools
+      kinds:
+      - apiGroups:
+        - ""
+        kinds:
+        - Pod
+  status:
+    auditTimestamp: "2026-02-08T13:40:12Z"
+    byPod:
+    - constraintUID: 13a15c53-075b-4161-9d54-ef27fa45b27a
+      enforced: true
+      id: gatekeeper-audit-6cb977c96f-xd2pm
+      observedGeneration: 1
+      operations:
+      - audit
+      - mutation-status
+      - status
+    - constraintUID: 13a15c53-075b-4161-9d54-ef27fa45b27a
+      enforced: true
+      id: gatekeeper-controller-manager-58bdb98859-wrb2q
+      observedGeneration: 1
+      operations:
+      - mutation-webhook
+      - webhook
+    totalViolations: 0
+- apiVersion: constraints.gatekeeper.sh/v1beta1
+  kind: K8sRequireLimits
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"constraints.gatekeeper.sh/v1beta1","kind":"K8sRequireLimits","metadata":{"annotations":{},"name":"require-resource-limits"},"spec":{"match":{"excludedNamespaces":["kube-system","gatekeeper-system","security-tools"],"kinds":[{"apiGroups":[""],"kinds":["Pod"]}]}}}
+    creationTimestamp: "2026-02-05T14:07:42Z"
+    generation: 1
+    name: require-resource-limits
+    resourceVersion: "1770558024668415016"
+    uid: 653a3d58-f710-4d18-b51f-9088d660bd16
+  spec:
+    match:
+      excludedNamespaces:
+      - kube-system
+      - gatekeeper-system
+      - security-tools
+      kinds:
+      - apiGroups:
+        - ""
+        kinds:
+        - Pod
+  status:
+    auditTimestamp: "2026-02-08T13:40:12Z"
+    byPod:
+    - constraintUID: 653a3d58-f710-4d18-b51f-9088d660bd16
+      enforced: true
+      id: gatekeeper-audit-6cb977c96f-xd2pm
+      observedGeneration: 1
+      operations:
+      - audit
+      - mutation-status
+      - status
+    - constraintUID: 653a3d58-f710-4d18-b51f-9088d660bd16
+      enforced: true
+      id: gatekeeper-controller-manager-58bdb98859-wrb2q
+      observedGeneration: 1
+      operations:
+      - mutation-webhook
+      - webhook
+    totalViolations: 8
+    violations:
+    - enforcementAction: deny
+      group: ""
+      kind: Pod
+      message: Container config-reloader missing CPU limit
+      name: collector-9m95t
+      namespace: gmp-system
+      version: v1
+    - enforcementAction: deny
+      group: ""
+      kind: Pod
+      message: Container prometheus missing CPU limit
+      name: collector-9m95t
+      namespace: gmp-system
+      version: v1
+    - enforcementAction: deny
+      group: ""
+      kind: Pod
+      message: Container config-reloader missing CPU limit
+      name: collector-cv98j
+      namespace: gmp-system
+      version: v1
+    - enforcementAction: deny
+      group: ""
+      kind: Pod
+      message: Container prometheus missing CPU limit
+      name: collector-cv98j
+      namespace: gmp-system
+      version: v1
+    - enforcementAction: deny
+      group: ""
+      kind: Pod
+      message: Container kube-state-metrics missing CPU limit
+      name: kube-state-metrics-0
+      namespace: gke-managed-cim
+      version: v1
+    - enforcementAction: deny
+      group: ""
+      kind: Pod
+      message: Container config-reloader missing CPU limit
+      name: collector-tjjc8
+      namespace: gmp-system
+      version: v1
+    - enforcementAction: deny
+      group: ""
+      kind: Pod
+      message: Container prometheus missing CPU limit
+      name: collector-tjjc8
+      namespace: gmp-system
+      version: v1
+    - enforcementAction: deny
+      group: ""
+      kind: Pod
+      message: Container operator missing CPU limit
+      name: gmp-operator-7d68d77cc9-vc4cj
+      namespace: gmp-system
+      version: v1
+kind: List
+metadata:
+  resourceVersion: ""

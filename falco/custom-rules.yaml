@@ -1,0 +1,13 @@
+- rule: Terminal shell in container
+  desc: Detects interactive shell execution inside a container
+  condition: >
+    container
+    and proc.name in (sh, bash, ash, zsh)
+    and evt.type = execve
+  output: >
+    Shell spawned inside container (user=%user.name
+    command=%proc.cmdline
+    container=%container.name
+    image=%container.image.repository)
+  priority: WARNING
+  tags: [container, shell, runtime, security]

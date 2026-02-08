@@ -1,0 +1,50 @@
+# custom-falco-rules.yaml
+# Custom detection rules for CloudNative Finance
+
+# Rule 1: Detect database credential access
+- rule: Database Credential File Access
+  desc: Detect any read of database credential files
+  condition: >
+    open_read and
+    (fd.name contains "database" or fd.name contains "db_") and
+    (fd.name contains "password" or fd.name contains "credential")
+  output: >
+    Database credential file accessed (user=%user.name command=%proc.cmdline file=%fd.name container=%container.name)
+  priority: CRITICAL
+  tags: [database, credentials]
+
+# Rule 2: Detect kubectl usage inside container
+- rule: Kubectl Executed in Container
+  desc: Detect kubectl or oc commands run inside a container
+  condition: >
+    spawned_process and
+    container and
+    (proc.name in (kubectl, oc, helm))
+  output: >
+    Kubernetes management tool executed in container (user=%user.name command=%proc.cmdline container=%container.name image=%container.image.repository)
+  priority: WARNING
+  tags: [kubernetes, suspicious_activity]
+
+# Rule 3: Detect crypto mining
+- rule: Crypto Mining Activity
+  desc: Detect potential cryptocurrency mining
+  condition: >
+    spawned_process and container and
+    (proc.name in (xmrig, minergate, minerd, cpuminer) or
+     proc.cmdline contains "stratum+tcp" or
+     proc.cmdline contains "pool.minergate")
+  output: >
+    Possible crypto mining detected (user=%user.name command=%proc.cmdline container=%container.name)
+  priority: CRITICAL
+  tags: [cryptomining, malware]
+
+# Rule 4: Detect outbound connections to suspicious ports
+- rule: Suspicious Outbound Connection
+  desc: Detect connections to IRC and other suspicious ports
+  condition: >
+    outbound and container and
+    (fd.sport in (6666, 6667, 6668, 6669, 4444, 5555))
+  output: >
+    Suspicious outbound connection (user=%user.name command=%proc.cmdline connection=%fd.name container=%container.name)
+  priority: WARNING
+  tags: [network, c2]

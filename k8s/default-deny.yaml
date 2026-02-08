@@ -1,0 +1,22 @@
+# default-deny.yaml
+# Deny all ingress traffic by default
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: trading-app
+spec:
+  podSelector: {}  # Applies to all pods
+  policyTypes:
+  - Ingress
+---
+# Deny all egress traffic by default
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-egress
+  namespace: trading-app
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress

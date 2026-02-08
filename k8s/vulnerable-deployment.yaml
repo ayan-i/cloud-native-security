@@ -1,0 +1,46 @@
+# vulnerable-deployment.yaml
+# WARNING: Intentionally vulnerable for educational purposes!
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulnerable-app
+  namespace: vulnerable-apps
+  labels:
+    app: vulnerable-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vulnerable-app
+  template:
+    metadata:
+      labels:
+        app: vulnerable-app
+    spec:
+      containers:
+      - name: vulnerable-container
+        # VULN: Using old, vulnerable image
+        image: nginx:1.14.0
+        # VULN: Running as root
+        securityContext:
+          privileged: true  # CRITICAL: Can escape to host!
+          runAsUser: 0      # Running as root
+          allowPrivilegeEscalation: true
+        # VULN: No resource limits (resource exhaustion risk)
+        ports:
+        - containerPort: 80
+        # VULN: Hardcoded secrets in environment
+        env:
+        - name: DB_PASSWORD
+          value: "super_secret_password_123"
+        - name: API_KEY
+          value: "sk-live-abc123xyz789"
+        # VULN: Mounting sensitive host paths
+        volumeMounts:
+        - name: host-root
+          mountPath: /host
+      volumes:
+      - name: host-root
+        hostPath:
+          path: /
+          type: Directory
