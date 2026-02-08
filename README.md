@@ -320,8 +320,9 @@ were verified directly via `kubectl logs` and are documented below.
   "k8s.ns.name": "vulnerable-apps",
   "source": "syscall"
 }
+```
 ---
- ```bash
+
 **Conclusion**
 
 This project demonstrates a practical, end-to-end approach to cloud-native security by combining:
@@ -331,4 +332,3 @@ This project demonstrates a practical, end-to-end approach to cloud-native secur
 * **Runtime threat detection** (Falco)
 
 By integrating these tools into a single Kubernetes environment, the project illustrates how defence-in-depth principles can be applied across the full container lifecycle while reflecting real-world DevSecOps challenges and constraints.
-```
