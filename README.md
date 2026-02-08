@@ -2,9 +2,9 @@
 
 ## Overview
 
-This project demonstrates an end-to-end implementation of **cloud-native security** for a microservices-based application running on Kubernetes. It applies **defence-in-depth** principles across the full container lifecycle, from pre-deployment scanning to runtime threat detection and admission-time policy enforcement.
+This project demonstrates an end-to-end implementation of cloud-native security for a microservices-based application running on Kubernetes. It applies defence-in-depth principles across the full container lifecycle, from pre-deployment scanning to runtime threat detection and admission-time policy enforcement.
 
-The project is implemented as a practical **DevSecOps security lab** using **Google Kubernetes Engine (GKE)** and focuses on identifying, exploiting, detecting, and preventing common Kubernetes security risks using industry-standard tools.
+The project is implemented as a practical DevSecOps security lab using Google Kubernetes Engine (GKE) and focuses on identifying, exploiting, detecting, and preventing common Kubernetes security risks using industry-standard tools.
 
 **Security tools used:**
 
@@ -12,7 +12,7 @@ The project is implemented as a practical **DevSecOps security lab** using **Goo
 * **Falco** – runtime threat detection using eBPF
 * **OPA Gatekeeper** – policy-as-code and admission control
 
-The scenario is based on a fictional organisation, **CloudNative Finance**, operating a high-availability trading platform that processes sensitive financial and user data.
+The scenario is based on a fictional organisation, CloudNative Finance, operating a high-availability trading platform that processes sensitive financial and user data.
 
 ---
 
@@ -54,7 +54,7 @@ Key risks addressed in this project include:
 * Sensitive file access and credential exposure
 * Post-exploitation and insider misuse
 
-This project follows the **4Cs of cloud-native security**:
+This project follows the 4Cs of cloud-native security:
 
 **Code → Containers → Cluster → Cloud**
 
@@ -94,7 +94,7 @@ trivy image nginx:1.14.0
 trivy config ./k8s
 ```
 
-This enabled early detection of security issues **before workloads were deployed**. Scan results were analysed to understand severity levels, affected packages, fixed versions, and attack surface reduction strategies.
+This enabled early detection of security issues before workloads were deployed. Scan results were analysed to understand severity levels, affected packages, fixed versions, and attack surface reduction strategies.
 
 ---
 
@@ -102,7 +102,7 @@ This enabled early detection of security issues **before workloads were deployed
 
 OPA Gatekeeper was used to enforce security policies at Kubernetes admission time, preventing insecure workloads from being created in the cluster.
 
-Unlike Trivy (pre-deployment scanning) and Falco (runtime detection), Gatekeeper provides **preventive controls** by blocking misconfigurations before they reach runtime.
+Unlike Trivy (pre-deployment scanning) and Falco (runtime detection), Gatekeeper provides preventive controls by blocking misconfigurations before they reach runtime.
 
 ### Enforced Policies
 
@@ -151,7 +151,7 @@ These workloads were later used to demonstrate both runtime detection and admiss
 
 To implement zero-trust networking, Kubernetes NetworkPolicies were applied to restrict pod-to-pod communication within the cluster.
 
-By default, Kubernetes allows all traffic. This project enforces a **default-deny** strategy and explicitly allows only required communication paths.
+By default, Kubernetes allows all traffic. This project enforces a default-deny strategy and explicitly allows only required communication paths.
 
 ### Implemented Network Policies
 
@@ -216,8 +216,6 @@ This demonstrates Falco’s ability to detect common post-exploitation technique
 ```bash
 kubectl logs -n security-tools -l app.kubernetes.io/name=falco -f
 ```
-
-This provided real-time visibility into runtime security events.
 
 ---
 
